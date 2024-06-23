@@ -2,8 +2,6 @@ const express = require('express');
 const router = express.Router();
 const db = require('../db.js');
 const bcrypt = require('bcryptjs');
-const session = require('express-session');
-const jwt = require('jsonwebtoken');
 
 router.get('/login', (req,res) => {
     res.sendFile('login.html', {root: 'public'});

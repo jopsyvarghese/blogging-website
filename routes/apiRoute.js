@@ -1,7 +1,10 @@
 const express = require('express');
 const router = express.Router();
+const db = require('../db.js');
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 
-router.post('/api/login', async (req, res) => {
+router.post('/login', async (req, res) => {
     const {username, password} = req.body;
     const [rows] = await db.query("SELECT id, username, user_password FROM users WHERE username=?", [username]);
     if(!rows[0] || !rows[0].id) {
@@ -40,7 +43,7 @@ router.post('/api/login', async (req, res) => {
     }
 });
 
-router.get('/api/verify_token', (req, res) => {
+router.get('/verify_token', (req, res) => {
     const authHeader = req.headers.authorization;
     if(!authHeader || !authHeader.startsWith('Bearer ')) {
         return res.status(401).json({message: "User not authenticated"});
