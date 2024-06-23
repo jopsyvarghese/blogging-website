@@ -1,0 +1,88 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .container {
+      border: 1px solid #ccc;
+      padding: 80px;
+      width: 340px;
+      margin: 0 auto;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    input[type="text"],
+    input[type="password"],
+    input[type="email"] {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      margin-bottom: 15px;
+    }
+
+    #title {
+      width: 360px;
+      padding: 10px;
+      border: 1px solid #ccc;
+      margin-bottom: 15px;
+    }
+
+    button {
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      cursor: pointer;
+      width: 100%;
+    }
+
+    button:hover {
+      opacity: 0.8;
+    }
+
+    .error {
+      color: red;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Register</h1>
+    <form action="/register" method="post"> 
+      <label for="username">Username</label>
+      <input type="text" id="username" name="username" required>
+      <label for="title">Title</label>
+      <select name="title" id="title" required>
+        <option value="">Please select a Title</option>
+        <option value="Mr.">Mr</option>
+        <option value="Mrs.">Mrs</option>
+        <option value="Miss.">Miss</option>
+      </select>
+      <label for="first_name">first Name</label>
+      <input type="text" id="first_name" name="first_name" required>
+      <label for="last_name">Last Name</label>
+      <input type="text" id="last_name" name="last_name" required>
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email" required>
+      <label for="password">Password</label>
+      <input type="password" id="password" name="password" required>
+      <button type="submit">Register</button>
+    </form>
+    </div>
+</body>
+</html>
