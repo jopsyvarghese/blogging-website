@@ -1,17 +1,84 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blogs Homepage</title>
-</head>
-<body>
-    <h1>Welcome to the Blogs Page</h1>
-    <% if(isLoggedIn) { %>
-        <a href="/logout">Logout</a>
-    <% } else { %>
-    <a href="login.html">Login</a>
-    <a href="register.html">Register</a>
-    <% } %>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>India Today Homepage</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div style="display: flex; align-items: center; justify-content: center">
+      <a href="" style="font-weight: 700">INDIA TODAY</a>
+      <a href="">AAJ TAK</a>
+      <a href="">GNTTV</a>
+      <a href="">LALLANTOP</a>
+      <a href="">BUSINESS TODAY</a>
+      <a href="">BANGLA</a>
+      <a href="">MALAYALAM</a>
+      <a href="">NORTHEAST</a>
+      <a href="">BT BAZAAR</a>
+      <a href="">HARPER'S BAZAAR</a>
+      <a href="">SPORTS TAK</a>
+    </div>
+    <main class="main-header">
+      <div style="flex: 1"></div>
+      <h1 style="flex: 3">India Today</h1>
+      <div style="flex: 4"></div>
+    </main>
+    <section style="display: flex">
+      <nav style="flex: 2">
+        <div style="display: flex">
+          <div style="flex: 4"></div>
+          <div style="flex: 4">
+            <ul>
+              <li class="auth-li">
+                <div style="flex: 8; flex-direction: row" id="auth-buttons">
+                  <% if(isLoggedIn) { %>
+                  <a href="/logout">Logout</a>
+                  <% } else { %>
+                  <a href="register.html">+</a>
+                  <a href="login.html">Sign In</a>
+                  <% } %>
+                </div>
+              </li>
+              <% if(categories && categories[0]) { categories.map((item) => { %>
+              <li><%= item.category_name %></li>
+              <% }); } %>
+            </ul>
+          </div>
+        </div>
+      </nav>
+      <content style="flex: 6">
+        <div style="display: flex">
+          <content-main style="flex: 6">
+            <% if (blogs && Object.keys(blogs).length > 0) { %> <%
+            blogs.forEach(blogs => { %>
+            <div class="card">
+              <img
+                src="/uploads/<%=blogs.image_url %>"
+                alt="Image Description"
+                class="card-image"
+              />
+              <div class="card-content">
+                <h2 class="card-title"><%= blogs.title %></h2>
+                <p class="card-description"><%= blogs.description %></p>
+              </div>
+            </div>
+            <% }); } else { %>
+            <h3>Nothing here...</h3>
+            <% } %>
+
+            <ul class="pagination">
+              <% for(let i=1; i <= totalPages; i++) { %>
+              <li class="page-item <%= i === currentPage ? 'active': '' %>">
+                <a href="?page=<%= i %>" class="page-link"><%= i %></a>
+              </li>
+              <% } %>
+            </ul>
+          </content-main>
+          <content-sidebar style="flex: 2"> </content-sidebar>
+        </div>
+      </content>
+    </section>
+  </body>
 </html>

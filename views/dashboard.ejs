@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <a href="/profile">Profile</a>
+    <a href="/list-my-blogs">View Blogs</a>
+    <a href="/logout">Logout</a>
+    <div class="container">
+        <h1>Add New Blog</h1>
+        <form id="myForm" method="POST" enctype="multipart/form-data" action="protected/add-blog">  <label for="title">Title:</label>
+            <input type="text" name="title" id="title" placeholder="Please give a blog title" required />
+
+            <label for="description">Description:</label>
+            <textarea id="description" name="description" rows="5" cols="30" placeholder="Please give a blog description"></textarea>
+
+            <label for="category_id">Category:</label>
+            <select id="category_id" name="category_id" required onchange="getSubcategories(this.value)">
+                <option value="">Select Category</option>
+                <% if(categories) { 
+                      categories.forEach(category => {  
+                    %>
+                    <option value="<%=category.id %>"><%=category.category_name %></option>
+                <% 
+            });
+                    } 
+            %>
+                </select>
+
+            <label for="sub_category_id">Subcategory:</label>
+            <select id="sub_category_id" name="sub_category_id">
+                <option value="">Select Subcategory (depends on Category)</option>
+            </select>
+
+            <label for="file_upload">File Upload:</label>
+            <input type="file" id="file_upload" name="file_upload" required>
+
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+    <script>
+        async function getSubcategories(categoryId) {
+            const response = await fetch(`/api/subcategories/${categoryId}`);
+            const subCategories = await response.json();
+            console.log(subCategories);
+            const subcategorySelect = document.getElementById('sub_category_id');
+            subcategorySelect.innerHTML = '<option value="">Select Category</option>';
+
+            subCategories.forEach(subCat => {
+                const option = document.createElement('option');
+                option.value = subCat.id;
+                option.textContent = subCat.sub_category_name;
+                subcategorySelect.appendChild(option);
+            });
+        }
+    </script>
+</body>
+</html>

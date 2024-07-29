@@ -6,6 +6,7 @@ const apiRoute = require('./routes/apiRoute');
 const bodyParser = require('body-parser');
 const session = require('express-session');
 const ejs = require('ejs');
+const authUser = require('./middlewares/authUser');
 
 const app = express();
 require('dotenv').config();
@@ -25,7 +26,7 @@ app.use(session({
     cookie: { secure: false } // true
   }));
 
-app.use('/protected', authRoute);
+app.use('/protected', authUser, authRoute);
 
 app.use('/api', apiRoute);
 
